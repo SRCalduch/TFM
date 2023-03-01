@@ -1,0 +1,138 @@
+---
+title: "TFM_1_Creación data frame con todos los datos agrupados"
+author: "Sergio Romero"
+date: "2023-02-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Se carga los archivos de cada año
+dlibrary(readr)
+doubles_2000 <- read_csv("C:/Users/USER/Desktop/TFM/Dades originals/tennis_atp/atp_matches_doubles_2000.csv")
+#Se repite para cada año
+```
+
+Se quiere añadir una columna año en cada excel
+```{r}
+rep_2020 <- rep(2020,270) #Se crea una repetición de longitud igual a la longitud de la base
+doubles_2020_year<-cbind(doubles_2020,rep_2020) #Se une la columna a la base
+install.packages("reshape") #Se instala un paquete para el comando de cambiar nombre
+require(reshape)
+doubles_2020_year = rename(doubles_2020_year, c(rep_2020="year")) #Se cambia el nombre de la columna
+#Se repite para todos los años
+```
+
+```{r}
+rep_2019 <- rep(2019,1363)
+doubles_2019_year<-cbind(doubles_2019,rep_2019)
+doubles_2019_year = rename(doubles_2019_year, c(rep_2019="year"))
+rep_2018 <- rep(2018,1285)
+doubles_2018_year<-cbind(doubles_2018,rep_2018)
+doubles_2018_year = rename(doubles_2018_year, c(rep_2018="year"))
+rep_2017 <- rep(2017,1313)
+doubles_2017_year<-cbind(doubles_2017,rep_2017)
+doubles_2017_year = rename(doubles_2017_year, c(rep_2017="year"))
+rep_2016 <- rep(2016,1354)
+doubles_2016_year<-cbind(doubles_2016,rep_2016)
+doubles_2016_year = rename(doubles_2016_year, c(rep_2016="year"))
+View(doubles_2016_year)
+rep_2015 <- rep(2015,1317)
+doubles_2015_year<-cbind(doubles_2015,rep_2015)
+doubles_2015_year = rename(doubles_2015_year, c(rep_2015="year"))
+View(doubles_2015_year)
+rep_2014 <- rep(2014,1275)
+doubles_2014_year<-cbind(doubles_2014,rep_2014)
+doubles_2014_year = rename(doubles_2014_year, c(rep_2014="year"))
+rep_2013 <- rep(2013,1260)
+doubles_2013_year<-cbind(doubles_2013,rep_2013)
+doubles_2013_year = rename(doubles_2013_year, c(rep_2013="year"))
+rep_2012 <- rep(2012,1300)
+doubles_2012_year<-cbind(doubles_2012,rep_2012)
+doubles_2012_year = rename(doubles_2012_year, c(rep_2012="year"))
+rep_2011 <- rep(2011,1281)
+doubles_2011_year<-cbind(doubles_2011,rep_2011)
+doubles_2011_year = rename(doubles_2011_year, c(rep_2011="year"))
+rep_2010 <- rep(2010,1295)
+doubles_2010_year<-cbind(doubles_2010,rep_2010)
+doubles_2010_year = rename(doubles_2010_year, c(rep_2010="year"))
+rep_2009 <- rep(2009,1281)
+doubles_2009_year<-cbind(doubles_2009,rep_2009)
+doubles_2009_year = rename(doubles_2009_year, c(rep_2009="year"))
+rep_2008 <- rep(2008,1280)
+doubles_2008_year<-cbind(doubles_2008,rep_2008)
+doubles_2008_year = rename(doubles_2008_year, c(rep_2008="year"))
+rep_2007 <- rep(2007,1284)
+doubles_2007_year<-cbind(doubles_2007,rep_2007)
+doubles_2007_year = rename(doubles_2007_year, c(rep_2007="year"))
+rep_2006 <- rep(2006,1269)
+doubles_2006_year<-cbind(doubles_2006,rep_2006)
+doubles_2006_year = rename(doubles_2006_year, c(rep_2006="year"))
+rep_2005 <- rep(2005,1260)
+doubles_2005_year<-cbind(doubles_2005,rep_2005)
+doubles_2005_year = rename(doubles_2005_year, c(rep_2005="year"))
+rep_2004 <- rep(2004,1298)
+doubles_2004_year<-cbind(doubles_2004,rep_2004)
+doubles_2004_year = rename(doubles_2004_year, c(rep_2004="year"))
+rep_2003 <- rep(2003,1260)
+doubles_2003_year<-cbind(doubles_2003,rep_2003)
+doubles_2003_year = rename(doubles_2003_year, c(rep_2003="year"))
+rep_2002 <- rep(2002,1332)
+doubles_2002_year<-cbind(doubles_2002,rep_2002)
+doubles_2002_year = rename(doubles_2002_year, c(rep_2002="year"))
+rep_2001 <- rep(2001,1393)
+doubles_2001_year<-cbind(doubles_2001,rep_2001)
+doubles_2001_year = rename(doubles_2001_year, c(rep_2001="year"))
+rep_2000 <- rep(2000,1429)
+doubles_2000_year<-cbind(doubles_2000,rep_2000)
+doubles_2000_year = rename(doubles_2000_year, c(rep_2000="year"))
+```
+
+Unión de todos los años en un único data frame
+```{r}
+d_00_01 <- rbind(doubles_2000_year,doubles_2001_year)
+d_00_01_02 <- rbind(d_00_01,doubles_2002_year)
+d_00_01_02_03 <- rbind(d_00_01_02,doubles_2003_year)
+d_00_01_02_03_04 <- rbind(d_00_01_02_03,doubles_2004_year)
+d_00_01_02_03_04_05 <- rbind(d_00_01_02_03_04,doubles_2005_year)
+d_00_01_02_03_04_05_06 <- rbind(d_00_01_02_03_04_05,doubles_2006_year)
+d_00_01_02_03_04_05_06_07 <- rbind(d_00_01_02_03_04_05_06,doubles_2007_year)
+d_00_01_02_03_04_05_06_07_08 <- rbind(d_00_01_02_03_04_05_06_07,doubles_2008_year)
+d_00_01_02_03_04_05_06_07_08_09 <- rbind(d_00_01_02_03_04_05_06_07_08,doubles_2009_year)
+d_00_01_02_03_04_05_06_07_08_09_10 <- rbind(d_00_01_02_03_04_05_06_07_08_09,doubles_2010_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10,doubles_2011_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11,doubles_2012_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12,doubles_2013_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13,doubles_2014_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14,doubles_2015_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15,doubles_2016_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16,doubles_2017_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17,doubles_2018_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18_19 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18,doubles_2019_year)
+d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18_19_20 <- rbind(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18_19,doubles_2020_year)
+write.csv(d_00_01_02_03_04_05_06_07_08_09_10_11_12_13_14_15_16_17_18_19_20,"ATP_doubles_full.csv")
+```
+
+```{r}
+datos <- read.csv("TFM/ATP_doubles_full.csv")
+Datos_ordenados <- subset(datos, select = c(1,2,67,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66))
+```
+
+Creación df para datos RET, W/O, DEF
+
+```{r}
+library(readr)
+ATP_doubles_full_ord_ok <- read_csv("ATP_doubles_full_ord_ok.csv")
+library(stringr)
+df_RET <- ATP_doubles_full_ord_ok[str_detect(ATP_doubles_full_ord_ok$score, "RET"), ]
+df_RET <- df_RET[!is.na(df_RET$tourney_id),]
+df_WO <- ATP_doubles_full_ord_ok[str_detect(ATP_doubles_full_ord_ok$score, "W/O"), ]
+df_WO <- df_WO[!is.na(df_WO$tourney_id),]
+df_DEF <- ATP_doubles_full_ord_ok[str_detect(ATP_doubles_full_ord_ok$score, "DEF"), ]
+df_DEF <- df_DEF[!is.na(df_DEF$tourney_id),]
+df_RET_WO <- rbind(df_RET,df_WO)
+```
+
