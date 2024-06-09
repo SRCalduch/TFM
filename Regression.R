@@ -3,7 +3,7 @@ library(readr)
 library(AER)
 
 # Loading data
-DoublesATP<- read_csv("data/DoublesATP.csv")
+DoublesATP<- read_csv("TFM/DoublesATP.csv")
 colnames(DoublesATP)[1] <- "matches"
 
 DoublesATP$Retirement    <- as.factor(DoublesATP$Retirement)
