@@ -1,26 +1,31 @@
-# Data
+#Libraries
 library(readr)
-DoublesATP<- read_csv("TFM/DoublesATP.csv")
+library(AER)
+
+# Loading data
+DoublesATP<- read_csv("data/DoublesATP.csv")
 colnames(DoublesATP)[1] <- "matches"
 
-#Transforming data
-DoublesATP$surface <- factor(DoublesATP$surface)
-DoublesATP$tourney_level <- factor(DoublesATP$tourney_level)
-DoublesATP$round_group <- factor(DoublesATP$round_group)
-DoublesATP$Retirement <- factor(DoublesATP$Retirement)
-DoublesATP$Retirement <- as.numeric(DoublesATP$Retirement)
+DoublesATP$Retirement    <- as.factor(DoublesATP$Retirement)
+DoublesATP$surface       <- factor(DoublesATP$surface,
+                                   levels = c("Grass","Carpet","Clay","Hard"))
+DoublesATP$tourney_level <- factor(DoublesATP$tourney_level,
+                                   levels = c("Masters 1000","Grand Slam","Other levels"))
 
 # Poisson Regression Model
-DoublesATP$surface <- relevel(DoublesATP$surface, ref = "Grass")
-DoublesATP$tourney_level <- relevel(DoublesATP$tourney_level, ref = "Masters 1000")
-Reg_mod <- glm(formula = Retirement ~ surface + tourney_level + round_group, 
-                  family = "poisson", 
-                  offset = log(Total_Games), 
-                  data = DoublesATP)
-summary(Reg_mod)
+DoublesATP$Ret_count <- as.numeric(DoublesATP$Retirement) - 1
+Reg_Ret_Surf_p <- glm(Ret_count ~ surface + tourney_level + round_group, 
+                      family = "poisson",
+                      offset = log(Total_Games),
+                      data   = DoublesATP)
+summary(Reg_Ret_Surf_p)
+
+# Overdispersion
+dispersiontest(Reg_Ret_Surf_p, trafo=1)
+dispersiontest(Reg_Ret_Surf_p, trafo=2)
 
 # Results table
-coefficients <- summary(Reg_mod)$coefficients
+coefficients <- summary(Reg_Ret_Surf_p)$coefficients
 estimates <- coefficients[, "Estimate"]
 std_errors <- coefficients[, "Std. Error"]
 irr <- exp(estimates)
@@ -38,8 +43,3 @@ results <- data.frame(
 )
 
 print(results)
-
-# Dispersion
-library(AER)
-dispersiontest(Reg_mod, trafo=1)
-dispersiontest(Reg_mod, trafo=2)
