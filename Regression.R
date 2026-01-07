@@ -89,7 +89,3 @@ Reg_post2010 <- glm(
 )
 
 summary(Reg_post2010)
-
-# Sensitivity analyses by calendar period (≤2010 vs. >2010) 
-# showed consistent direction and magnitude of associations, 
-# supporting the robustness of the main findings.
