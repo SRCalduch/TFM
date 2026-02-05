@@ -2,7 +2,7 @@
 # Import data base
 
 library(readr)
-DoublesATP<- read_csv("TFM/DoublesATP.csv")
+DoublesATP<- read_csv("Data/DoublesATP.csv")
 colnames(DoublesATP)[1] <- "matches"
 
 library("SmartEDA")
@@ -60,14 +60,25 @@ incidence <- DoublesATP %>%
   summarise(retires = sum(Retirement == "YES"), matches = n_distinct(matches)) %>%
   mutate(incidence = retires / matches)
 
+incidence$lower <- incidence$upper <- NA 
+for(i in 1:nrow(incidence)){
+  incidence$lower[i] <- prop.test(incidence$retires[i], incidence$matches[i])$conf.int[1]
+  incidence$upper[i] <- prop.test(incidence$retires[i], incidence$matches[i])$conf.int[2]
+}
+
 library(ggplot2)
 
 ggplot(incidence, aes(x = year, y = incidence)) +
-  geom_line() +
-  geom_point() +
+  geom_line(color='darkblue') +
+  geom_point(color='darkblue') +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.3, color='darkblue') +
   xlab("Year") +
   ylab("Retirement incidence") +
+  scale_x_continuous(minor_breaks = 2000:2020) +
   ggtitle("Incidence of retirements per year")
+
+ggsave(filename = 'Graphics/Epidemiology/Incidence of retirements per year.jpeg',
+       width = 10, height = 6) # width = 7.3, height = 6.4
 
 
 
@@ -84,4 +95,5 @@ ggplot(retires_year_surface, aes(x = year, y = retires, fill = surface)) +
   ylab("Total retirements") +
   ggtitle("Retirements per year and surface") +
   scale_fill_discrete(name = "Surfaces")
+
 
